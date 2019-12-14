@@ -6,27 +6,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+/*
+ * Class : Segmento
+ * Em 14/12/2019
+ * Objetivo : Identificar o segmento ao qual a Loja está enquadrada
+ * CNAE PRINCIPAL 
+ * 
+ * */
 @Entity
-public class Categoria implements Serializable {
-	
+public class Segmento implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id ;
 	private String nome ;
-	private int idpai ;
-
+	private String cnae ;
 	
-	public Categoria() {
+	public Segmento() {
 		
 	}
-
-	public Categoria(int id, String nome, int idpai ) {
+	
+	public Segmento(int id, String nome, String cnae) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.idpai = idpai ;
+		this.cnae = cnae;
 	}
 
 	public int getId() {
@@ -44,13 +49,21 @@ public class Categoria implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
 
-	public int getIdpai() {
-		return idpai;
+	public String getCnae() {
+		return cnae;
 	}
 
-	public void setIdpai(int idpai) {
-		this.idpai = idpai;
+	public void setCnae(String cnae) {
+		this.cnae = cnae;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "Segmento [id=" + id + ", nome=" + nome + ", cnab=" + cnae + "]";
 	}
 
 	@Override
@@ -58,6 +71,7 @@ public class Categoria implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
 
@@ -69,12 +83,17 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Segmento other = (Segmento) obj;
 		if (id != other.id)
 			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
 		return true;
-	} ;
+	}
+	
+	
 
-	
-	
 }
