@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="PRODUTO")
 public class Produto implements Serializable {
@@ -47,6 +49,8 @@ public class Produto implements Serializable {
 	@Column(name="DATACADASTRO", nullable=true)
 	private Calendar dataCadastro ;
 	
+	
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name="PRODUTO_CATEGORIA",
 			joinColumns = @JoinColumn(name="ID_PRODUTO"), 

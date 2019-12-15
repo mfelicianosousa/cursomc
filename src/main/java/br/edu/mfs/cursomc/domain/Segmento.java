@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 /*
  * Class : Segmento
  * Em 14/12/2019
@@ -34,6 +36,7 @@ public class Segmento implements Serializable{
 	@Column(name="CNAE", nullable=false)
 	private String cnae ;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="segmentos")
 	private List<Categoria> categorias = new ArrayList<>();
 	

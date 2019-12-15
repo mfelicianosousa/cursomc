@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="CATEGORIA")
 public class Categoria implements Serializable {
@@ -24,15 +27,18 @@ public class Categoria implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column(name="ID")
 	private int id ;
+	
 	@Column(name="NOME", nullable=false)
 	private String nome ;
 	
 	@Column(name="IDPAI", nullable=false)
 	private int idpai ;
 
+	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name="CATEGORIA_SEGMENTO",
 			joinColumns = @JoinColumn(name="ID_CATEGORIA"), 
