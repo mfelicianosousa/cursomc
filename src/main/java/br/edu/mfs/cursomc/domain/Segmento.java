@@ -1,11 +1,16 @@
 package br.edu.mfs.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 /*
  * Class : Segmento
  * Em 14/12/2019
@@ -14,14 +19,23 @@ import javax.persistence.Id;
  * 
  * */
 @Entity
+@Table(name="SEGMENTO")
 public class Segmento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ID")
 	private int id ;
+	
+	@Column(name="NOME", nullable=false)
 	private String nome ;
+	
+	@Column(name="CNAE", nullable=false)
 	private String cnae ;
+	
+	@ManyToMany(mappedBy="segmentos")
+	private List<Categoria> categorias = new ArrayList<>();
 	
 	public Segmento() {
 		
@@ -50,8 +64,6 @@ public class Segmento implements Serializable{
 		this.nome = nome;
 	}
 	
-	
-
 	public String getCnae() {
 		return cnae;
 	}
@@ -61,6 +73,14 @@ public class Segmento implements Serializable{
 	}
 
 	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
 	@Override
 	public String toString() {
 		return "Segmento [id=" + id + ", nome=" + nome + ", cnab=" + cnae + "]";
@@ -93,6 +113,8 @@ public class Segmento implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 	
 

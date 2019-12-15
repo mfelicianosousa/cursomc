@@ -1,22 +1,44 @@
 package br.edu.mfs.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="CATEGORIA")
 public class Categoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@Column(name="ID")
 	private int id ;
+	@Column(name="NOME", nullable=false)
 	private String nome ;
+	
+	@Column(name="IDPAI", nullable=false)
 	private int idpai ;
 
+	@ManyToMany(mappedBy="categorias")
+	private List<Produto> produtos = new ArrayList<>();
+	
+	@ManyToMany
+	@JoinTable(name="CATEGORIA_SEGMENTO",
+			joinColumns = @JoinColumn(name="ID_CATEGORIA"), 
+			inverseJoinColumns =@JoinColumn(name="ID_SEGMENTO")
+    )
+	private List<Segmento> segmentos = new ArrayList<>();
 	
 	public Categoria() {
 		
@@ -53,6 +75,21 @@ public class Categoria implements Serializable {
 		this.idpai = idpai;
 	}
 
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public List<Segmento> getSegmentos() {
+		return segmentos;
+	}
+
+	public void setSegmentos(List<Segmento> segmentos) {
+		this.segmentos = segmentos;
+	} ;
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,8 +110,7 @@ public class Categoria implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
-	} ;
+	}
 
-	
 	
 }
