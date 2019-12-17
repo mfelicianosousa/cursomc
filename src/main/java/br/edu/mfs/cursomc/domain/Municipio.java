@@ -11,12 +11,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="MUNICIPIO")
 public class Municipio implements Serializable {
 	/**
 	 * http://www.universidadejava.com.br/materiais/jpa-chave-primaria-composta/
-	 */
+	 * *Table structure for table `city` 
+
+		CREATE TABLE `city` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+		  `id_state` int(11) NOT NULL COMMENT 'State',
+		  `title` varchar(50) NOT NULL COMMENT 'Title',
+		  `iso` int(8) NOT NULL COMMENT 'Code ISO',
+		  `iso_ddd` varchar(6) NOT NULL COMMENT 'DDD ISO',
+		  `population` int(11) NOT NULL DEFAULT '0' COMMENT 'Population',
+		  `lat` varchar(180) DEFAULT NULL COMMENT 'Latitude',
+		  `lng` varchar(180) DEFAULT NULL COMMENT 'Longitude',
+		  `created_at` datetime DEFAULT NULL COMMENT 'Created At',
+		  `updated_at` datetime DEFAULT NULL COMMENT 'Updated At',
+		  `status` enum('0','1') NOT NULL DEFAULT '1' COMMENT 'Status',
+		  PRIMARY KEY (`id`),
+		  KEY `FK_id_state_city` (`id_state`),
+		  CONSTRAINT `FK_id_state_city` FOREIGN KEY (`id_state`) REFERENCES `state` (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=5571 DEFAULT CHARSET=utf8;
+		
+		Data for the table `city` 
+			 */
 	private static final long serialVersionUID = 1L;
 	
 
@@ -35,6 +57,7 @@ public class Municipio implements Serializable {
 	
 	private long longitude ;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="uf")
 	private Estado uf;

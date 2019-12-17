@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.edu.mfs.cursomc.domain.enums.TipoEndereco;
 
 @Entity
@@ -29,6 +31,7 @@ public class ClienteEndereco implements Serializable {
 	private String bairro ;
 	private String complemento ;
     
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="id_Cliente") 
 	private Cliente cliente ;

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.edu.mfs.cursomc.domain.enums.Regiao;
 
 @Entity
@@ -37,6 +39,7 @@ public class Estado implements Serializable {
 	@Column(name="REGIAO", nullable=false)
 	private int regiao ; /* {Norte, Nordeste, Sul, Sudeste, Centro-Oeste } */
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="uf")
 	private List<Municipio> municipio = new ArrayList<>();
 	
