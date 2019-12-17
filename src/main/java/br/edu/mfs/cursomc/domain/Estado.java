@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.edu.mfs.cursomc.domain.enums.Regiao;
+
 @Entity
 @Table(name="ESTADO")
 public class Estado implements Serializable {
@@ -33,7 +35,7 @@ public class Estado implements Serializable {
 	private String capital ;
 	
 	@Column(name="REGIAO", nullable=false)
-	private Regiao regiao ; /* {Norte, Nordeste, Sul, Sudeste, Centro-Oeste } */
+	private int regiao ; /* {Norte, Nordeste, Sul, Sudeste, Centro-Oeste } */
 	
 	@OneToMany(mappedBy="uf")
 	private List<Municipio> municipio = new ArrayList<>();
@@ -49,7 +51,7 @@ public class Estado implements Serializable {
 		this.codEstado = codEstado;
 		this.nome = nome;
 		this.capital = capital;
-		this.regiao = regiao;
+		this.regiao = regiao.getCodigo();
 	}
 
 
@@ -89,10 +91,10 @@ public class Estado implements Serializable {
 		this.capital = capital;
 	}
 	public Regiao getRegiao() {
-		return regiao;
+		return Regiao.toEnum(regiao);
 	}
 	public void setRegiao(Regiao regiao) {
-		this.regiao = regiao;
+		this.regiao = regiao.getCodigo();
 	}
 
 	@Override

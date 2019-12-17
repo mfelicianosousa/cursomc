@@ -2,21 +2,24 @@ package br.edu.mfs.cursomc;
 
 import java.util.Arrays;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.edu.mfs.cursomc.domain.Categoria;
+import br.edu.mfs.cursomc.domain.Cliente;
+import br.edu.mfs.cursomc.domain.ClienteEndereco;
 import br.edu.mfs.cursomc.domain.Estado;
 import br.edu.mfs.cursomc.domain.Municipio;
 import br.edu.mfs.cursomc.domain.Produto;
-import br.edu.mfs.cursomc.domain.Regiao;
 import br.edu.mfs.cursomc.domain.Segmento;
+import br.edu.mfs.cursomc.domain.enums.Regiao;
+import br.edu.mfs.cursomc.domain.enums.TipoCliente;
+import br.edu.mfs.cursomc.domain.enums.TipoEndereco;
 import br.edu.mfs.cursomc.repositories.CategoriaRepository;
+import br.edu.mfs.cursomc.repositories.ClienteEnderecoRepository;
+import br.edu.mfs.cursomc.repositories.ClienteRepository;
 import br.edu.mfs.cursomc.repositories.EstadoRepository;
 import br.edu.mfs.cursomc.repositories.MunicipioRepository;
 import br.edu.mfs.cursomc.repositories.ProdutoRepository;
@@ -39,6 +42,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired 
 	private MunicipioRepository municipioRepository ;
+	
+	@Autowired 
+	private ClienteRepository clienteRepository ;
+	
+	@Autowired 
+	private ClienteEnderecoRepository clienteEnderecoRepository ;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -161,7 +170,25 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		municipioRepository.saveAll(Arrays.asList(AC1,AC2,AC3,AC4,AC5,AC6,AC7,AC8,AC9,AC10,AC11,AC12,AC13,AC14,AC15,AC16,AC17,AC18,AC19,AC20,AC21,AC22));
 		
+		/* Clientes, Endereços e Cidades
+		 * public Cliente(int id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+		 *  */
 		
+		Cliente cli1 = new Cliente(0,"Maria Silva","maria@gmail.com","36378912377",TipoCliente.PESSOA_FISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393")) ;
+		
+		/*public ClienteEndereco(int id, TipoEndereco tipoEndereco, String cep, String logradouro, String numero,
+			String bairro, String complemento, Cliente cliente, Municipio municipio) {
+		 * */
+		ClienteEndereco e1 = new ClienteEndereco(0,TipoEndereco.RESIDENCIAL,"78088120","Rua 201","6","TIJUCAL","PROX. NERCY CABELELEIRA",cli1, MT10);
+		ClienteEndereco e2 = new ClienteEndereco(0,TipoEndereco.COMERCIAL,"78088000","Rua Alcantara","1006","PAZ","PROX. AV GETULIO VARGAS,1220",cli1, AC15);
+	    // Cliente precisa conhecer os endereços dele
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2)) ;
+		
+		clienteRepository.saveAll( Arrays.asList(cli1));
+		clienteEnderecoRepository.saveAll(Arrays.asList(e1,e2)) ;
+		
+	
 	}
 
 }
