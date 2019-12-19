@@ -24,16 +24,16 @@ public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="UF", nullable=false)
+	@Column(name="UF", length=2, nullable=false)
 	private String uf;
 
-	@Column(name="CODESTADO", nullable=true)
+	@Column(name="CODESTADO",length=2, nullable=true)
 	private String codEstado ;
 	
-	@Column(name="NOME", nullable=true)
+	@Column(name="NOME",length=50, nullable=true)
 	private String nome ;
 
-	@Column(name="CAPITAL", nullable=false)
+	@Column(name="CAPITAL", length=40, nullable=false)
 	private String capital ;
 	
 	@Column(name="REGIAO", nullable=false)

@@ -20,20 +20,33 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column(name="ID", nullable=false)
 	private int id ;
+	@Column(name="NOME",length=30)
 	private String nome;
+	@Column(name="SOBRENOME",length=70)
 	private String sobrenome;
 	private Date dataNascimento;
+	@Column(name="SEXO",length=1)
 	private String sexo;
+	@Column(name="CPF",length=11)
     private String cpf;
+	@Column(name="RGNUMERO",length=20)
     private String rgNumero;
+	@Column(name="RGORGAOEMISSOR",length=10)
     private String rgOrgaoEmissor ;
+	@Column(name="RGUFEMISSOR",length=2)
     private String rgEstadoEmissor ;
-    private Date   rgDataEmissao; 
+    private Date   rgDataEmissao;
+    @Column(name="DDD",length=3)
     private String ddd;
+    @Column(name="TELEFONE",length=10)
     private String telefone;
+    @Column(name="CELULAR",length=10)
     private String celular;
+    @Column(name="EMAIL",length=100)
     private String email;
+    @Column(name="ENDERECO",length=100)
     private String endereco;
+    @Column(name="PROFISSAO",length=40)
     private String profissao;
     
     private Pessoa() {

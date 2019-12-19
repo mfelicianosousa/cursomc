@@ -1,5 +1,6 @@
 package br.edu.mfs.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,13 @@ import br.edu.mfs.cursomc.domain.Cliente;
 import br.edu.mfs.cursomc.domain.ClienteEndereco;
 import br.edu.mfs.cursomc.domain.Estado;
 import br.edu.mfs.cursomc.domain.Municipio;
+import br.edu.mfs.cursomc.domain.Pagamento;
+import br.edu.mfs.cursomc.domain.PagamentoComBoleto;
+import br.edu.mfs.cursomc.domain.PagamentoComCartao;
+import br.edu.mfs.cursomc.domain.Pedido;
 import br.edu.mfs.cursomc.domain.Produto;
 import br.edu.mfs.cursomc.domain.Segmento;
+import br.edu.mfs.cursomc.domain.enums.EstadoPagamento;
 import br.edu.mfs.cursomc.domain.enums.Regiao;
 import br.edu.mfs.cursomc.domain.enums.TipoCliente;
 import br.edu.mfs.cursomc.domain.enums.TipoEndereco;
@@ -22,6 +28,8 @@ import br.edu.mfs.cursomc.repositories.ClienteEnderecoRepository;
 import br.edu.mfs.cursomc.repositories.ClienteRepository;
 import br.edu.mfs.cursomc.repositories.EstadoRepository;
 import br.edu.mfs.cursomc.repositories.MunicipioRepository;
+import br.edu.mfs.cursomc.repositories.PagamentoRepository;
+import br.edu.mfs.cursomc.repositories.PedidoRepository;
 import br.edu.mfs.cursomc.repositories.ProdutoRepository;
 import br.edu.mfs.cursomc.repositories.SegmentoRepository;
 
@@ -48,6 +56,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired 
 	private ClienteEnderecoRepository clienteEnderecoRepository ;
+	
+	@Autowired 
+	private PedidoRepository pedidoRepository ;
+	
+	@Autowired 
+	private PagamentoRepository pagamentoRepository ;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -125,70 +139,86 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		//public Municipio(int id, String codMunicipio, String nome, String ddd, long latitude, long longitude, Estado uf) {
 		
-		Municipio MT1 = new Municipio(0,"00102","ACORIZAL","65",0,0,MT);
-		Municipio MT2 = new Municipio(0,"00201","AGUA BOA","65",0,0,MT);
-		Municipio MT3 = new Municipio(0,"00250","ALTA FLORESTA","65",0,0,MT);
-		Municipio MT4 = new Municipio(0,"00300","ALTO ARAGUAI","65",0,0,MT);
-		Municipio MT5 = new Municipio(0,"00359","ALTO DA BOA VISTA","65",0,0,MT);
-		Municipio MT6 = new Municipio(0,"00409","ALTO GARÇAS","65",0,0,MT);
-		Municipio MT7 = new Municipio(0,"00508","ALTO PARAGUAI","65",0,0,MT);
-		Municipio MT8 = new Municipio(0,"00607","ALTO TAQUARI","65",0,0,MT);
-		Municipio MT9 = new Municipio(0,"00805","APIACAS","65",0,0,MT);
-		Municipio MT10 = new Municipio(0,"03403","CUIABÁ","65",0,0,MT);
+		Municipio M1= new Municipio(0,"00102","ACORIZAL","65",0,0,MT);
+		Municipio M2 = new Municipio(0,"00201","AGUA BOA","65",0,0,MT);
+		Municipio M3 = new Municipio(0,"00250","ALTA FLORESTA","65",0,0,MT);
+		Municipio M4 = new Municipio(0,"00300","ALTO ARAGUAI","65",0,0,MT);
+		Municipio M5 = new Municipio(0,"00359","ALTO DA BOA VISTA","65",0,0,MT);
+		Municipio M6 = new Municipio(0,"00409","ALTO GARÇAS","65",0,0,MT);
+		Municipio M7 = new Municipio(0,"00508","ALTO PARAGUAI","65",0,0,MT);
+		Municipio M8 = new Municipio(0,"00607","ALTO TAQUARI","65",0,0,MT);
+		Municipio M9 = new Municipio(0,"00805","APIACAS","65",0,0,MT);
+		Municipio M10 = new Municipio(0,"03403","CUIABÁ","65",0,0,MT);
 		
-		MT.getMunicipio().addAll(Arrays.asList(MT1,MT2,MT3,MT4,MT5,MT6,MT7,MT8,MT9,MT10));
+		//MT.getMunicipio().addAll(Arrays.asList(MT1,MT2,MT3,MT4,MT5,MT6,MT7,MT8,MT9,MT10));
 		
-		estadoRepository.saveAll(Arrays.asList(RO,AC,AM,RR,PA,AP,TO,MA,PI,CE,RN,PB,PE,AL,SE,BA,MG,ES,RJ,SP,PR,SC,RS,MS,MT,GO,DF)) ;
+		//estadoRepository.saveAll(Arrays.asList(RO,AC,AM,RR,PA,AP,TO,MA,PI,CE,RN,PB,PE,AL,SE,BA,MG,ES,RJ,SP,PR,SC,RS,MS,MT,GO,DF)) ;
 			
-		municipioRepository.saveAll(Arrays.asList(MT1,MT2,MT3,MT4,MT5,MT6,MT7,MT8,MT9,MT10));
+		//municipioRepository.saveAll(Arrays.asList(MT1,MT2,MT3,MT4,MT5,MT6,MT7,MT8,MT9,MT10));
         /*MUNICIPIOS DO AC */
 		
-		Municipio AC1 = new Municipio(0,"00013","ACRELÂNDIA","00",0,0,AC);
-		Municipio AC2 = new Municipio(0,"00054","ASSIS BRASIL","00",0,0,AC);
-		Municipio AC3 = new Municipio(0,"00104","BRASILÉIA","",0,0,AC);
-		Municipio AC4 = new Municipio(0,"00138","BUJARI","",0,0,AC);
-		Municipio AC5 = new Municipio(0,"00179","CAPIXABA","",0,0,AC);
-		Municipio AC6 = new Municipio(0,"00203","CRUZEIRO DO SUL","65",0,0,AC);
-		Municipio AC7 = new Municipio(0,"00252","EPITACIOLÂNDIA","65",0,0,AC);
-		Municipio AC8 = new Municipio(0,"00302","FEIJÓ","65",0,0,AC);
-		Municipio AC9 = new Municipio(0,"00328","JORDÃO","65",0,0,AC);
-		Municipio AC10 = new Municipio(0,"00336","MÂNCIO LIMA","65",0,0,AC);
-		Municipio AC11 = new Municipio(0,"00344","MANOEL URBANO","00",0,0,AC);
-		Municipio AC12 = new Municipio(0,"00351","MARECHAL THAUMATURGO","00",0,0,AC);
-		Municipio AC13 = new Municipio(0,"00385","PLÁCIDO DE CASTRO","",0,0,AC);
-		Municipio AC14 = new Municipio(0,"00393","PORTO WALTER","",0,0,AC);
-		Municipio AC15 = new Municipio(0,"00401","RIO BRANCO","",0,0,AC);
-		Municipio AC16 = new Municipio(0,"00427","RODRIGUES ALVES","",0,0,AC);
-		Municipio AC17 = new Municipio(0,"00435","SANTA ROSA DO PURUS","65",0,0,AC);
-		Municipio AC18 = new Municipio(0,"00450","SENADOR GUIOMARD","",0,0,AC);
-		Municipio AC19 = new Municipio(0,"00500","SENA MADUREIRA","65",0,0,AC);
-		Municipio AC20 = new Municipio(0,"00609","TARAUACÁ","65",0,0,AC);
-		Municipio AC21 = new Municipio(0,"00708","XAPURI","65",0,0,AC);
-		Municipio AC22 = new Municipio(0,"00807","PORTO ACRE","65",0,0,AC);
+		Municipio M11 = new Municipio(0,"00013","ACRELÂNDIA","00",0,0,AC);
+		Municipio M12 = new Municipio(0,"00054","ASSIS BRASIL","00",0,0,AC);
+		Municipio M13 = new Municipio(0,"00104","BRASILÉIA","",0,0,AC);
+		Municipio M14 = new Municipio(0,"00138","BUJARI","",0,0,AC);
+		Municipio M15 = new Municipio(0,"00179","CAPIXABA","",0,0,AC);
+		Municipio M16 = new Municipio(0,"00203","CRUZEIRO DO SUL","65",0,0,AC);
+		Municipio M17 = new Municipio(0,"00252","EPITACIOLÂNDIA","65",0,0,AC);
+		Municipio M18 = new Municipio(0,"00302","FEIJÓ","65",0,0,AC);
+		Municipio M19 = new Municipio(0,"00328","JORDÃO","65",0,0,AC);
+		Municipio M20 = new Municipio(0,"00336","MÂNCIO LIMA","65",0,0,AC);
+		Municipio M21 = new Municipio(0,"00344","MANOEL URBANO","00",0,0,AC);
+		Municipio M22 = new Municipio(0,"00351","MARECHAL THAUMATURGO","00",0,0,AC);
+		Municipio M23 = new Municipio(0,"00385","PLÁCIDO DE CASTRO","",0,0,AC);
+		Municipio M24 = new Municipio(0,"00393","PORTO WALTER","",0,0,AC);
+		Municipio M25 = new Municipio(0,"00401","RIO BRANCO","",0,0,AC);
+		Municipio M26 = new Municipio(0,"00427","RODRIGUES ALVES","",0,0,AC);
+		Municipio M27 = new Municipio(0,"00435","SANTA ROSA DO PURUS","65",0,0,AC);
+		Municipio M28 = new Municipio(0,"00450","SENADOR GUIOMARD","",0,0,AC);
+		Municipio M29 = new Municipio(0,"00500","SENA MADUREIRA","65",0,0,AC);
+		Municipio M30 = new Municipio(0,"00609","TARAUACÁ","65",0,0,AC);
+		Municipio M31 = new Municipio(0,"00708","XAPURI","65",0,0,AC);
+		Municipio M32 = new Municipio(0,"00807","PORTO ACRE","65",0,0,AC);
 	
-		AC.getMunicipio().addAll(Arrays.asList(AC1,AC2,AC3,AC4,AC5,AC6,AC7,AC8,AC9,AC10,AC11,AC12,AC13,AC14,AC15,AC16,AC17,AC18,AC19,AC20,AC21,AC22));
+		//AC.getMunicipio().addAll(Arrays.asList(AC1,AC2,AC3,AC4,AC5,AC6,AC7,AC8,AC9,AC10,AC11,AC12,AC13,AC14,AC15,AC16,AC17,AC18,AC19,AC20,AC21,AC22));
 		
-		municipioRepository.saveAll(Arrays.asList(AC1,AC2,AC3,AC4,AC5,AC6,AC7,AC8,AC9,AC10,AC11,AC12,AC13,AC14,AC15,AC16,AC17,AC18,AC19,AC20,AC21,AC22));
+		municipioRepository.saveAll(Arrays.asList(M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22,M23,M24,M25,M26,M27,M28,M29,M30,M31,M32));
 		
 		/* Clientes, Endereços e Cidades
 		 * public Cliente(int id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
 		 *  */
 		
+
 		Cliente cli1 = new Cliente(0,"Maria Silva","maria@gmail.com","36378912377",TipoCliente.PESSOA_FISICA);
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393")) ;
 		
-		/*public ClienteEndereco(int id, TipoEndereco tipoEndereco, String cep, String logradouro, String numero,
-			String bairro, String complemento, Cliente cliente, Municipio municipio) {
-		 * */
-		ClienteEndereco e1 = new ClienteEndereco(0,TipoEndereco.RESIDENCIAL,"78088120","Rua 201","6","TIJUCAL","PROX. NERCY CABELELEIRA",cli1, MT10);
-		ClienteEndereco e2 = new ClienteEndereco(0,TipoEndereco.COMERCIAL,"78088000","Rua Alcantara","1006","PAZ","PROX. AV GETULIO VARGAS,1220",cli1, AC15);
+		ClienteEndereco e1 = new ClienteEndereco(0,TipoEndereco.RESIDENCIAL,"78088120","Rua 201","6","TIJUCAL","PROX. NERCY CABELELEIRA",cli1, M10);
+		ClienteEndereco e2 = new ClienteEndereco(0,TipoEndereco.COMERCIAL,"78088000","Rua Alcantara","1006","PAZ","PROX. AV GETULIO VARGAS,1220",cli1, M15);
 	    // Cliente precisa conhecer os endereços dele
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2)) ;
 		
 		clienteRepository.saveAll( Arrays.asList(cli1));
 		clienteEnderecoRepository.saveAll(Arrays.asList(e1,e2)) ;
-		
 	
+		
+	    // pedidos
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Pedido ped1 = new Pedido( 0, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido( 0, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(0,EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoComBoleto(0,EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"),null);
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2)) ;
+		
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+	
+				
 	}
 
 }

@@ -30,10 +30,10 @@ public class Segmento implements Serializable{
 	@Column(name="ID")
 	private int id ;
 	
-	@Column(name="NOME", nullable=false)
+	@Column(name="NOME", length=100, nullable=false)
 	private String nome ;
 	
-	@Column(name="CNAE", nullable=false)
+	@Column(name="CNAE", length=8, nullable=false)
 	private String cnae ;
 	
 	@JsonManagedReference

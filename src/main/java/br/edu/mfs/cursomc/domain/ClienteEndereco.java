@@ -25,10 +25,15 @@ public class ClienteEndereco implements Serializable {
 	@Column(name="ID", nullable=false)
 	private int id ;
 	private int tipoEndereco ; /*Residencial, Comercial, Local de Entrega*/
+	@Column(name="CEP",length=9)
 	private String cep ;
+	@Column(name="LOGRADOURO",length=100)
 	private String logradouro ;
+	@Column(name="NUMERO",length=10)
 	private String numero ;
+	@Column(name="BAIRRO",length=50)
 	private String bairro ;
+	@Column(name="COMPLEMENTO",length=100)
 	private String complemento ;
     
 	@JsonBackReference

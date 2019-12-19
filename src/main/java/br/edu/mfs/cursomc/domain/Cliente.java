@@ -30,9 +30,13 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column(name="ID", nullable=false)
 	private int id ;
+	@Column(name="NOME",length=60)
 	private String nome ;
+	@Column(name="EMAIL",length=100)
 	private String email ;
+	
 	private String cpfOuCnpj ;
+	
 	private int tipoCliente ;
 	
 	@JsonManagedReference
@@ -43,7 +47,10 @@ public class Cliente implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	private Cliente() {
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	public Cliente() {
 		
 	}
 
@@ -113,6 +120,15 @@ public class Cliente implements Serializable {
 		this.telefones = telefones;
 	}
 
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -134,7 +150,7 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	
 	
 
